@@ -113,13 +113,21 @@
 
             container.innerHTML = products.map((p) => {
                 const idx = allProducts.indexOf(p);
+                const cat = p.category || "clothes";
+                const emoji = cat === "sandals" ? "👟" : "👕";
+                const catLabel = cat === "sandals" ? "Footwear" : "Clothing";
                 return `
                 <div class="card" onclick="goToProduct(${idx})">
+                    <div class="card-emoji">${emoji}</div>
+                    <div class="card-wish" onclick="event.stopPropagation(); this.innerText='❤️'; this.style.color='#e63946';">🤍</div>
                     <div class="product-image-wrap">
                         <img src="${resolveImage(p.image)}" alt="${p.name}" onerror="this.src='${PLACEHOLDER}'">
                     </div>
-                    <h3>${p.name}</h3>
-                    <div class="price">${p.price} DH</div>
+                    <div class="card-body">
+                        <h3>${p.name}</h3>
+                        <div class="price">${p.price} DH</div>
+                        <div class="cat-tag">${catLabel}</div>
+                    </div>
                 </div>`;
             }).join("");
         }
