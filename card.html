@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Bag - CLSS WEAR</title>
+    <style>
+        body { padding: 0; }
+        .bag-wrap { max-width: 700px; margin: 110px auto 60px; padding: 0 30px; }
+        .bag-title { font-size: 28px; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 35px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+        .bag-item { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; border-bottom: 1px solid #eee; }
+        .bag-item-info h3 { font-size: 15px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .bag-item-info .meta { font-size: 13px; color: #999; }
+        .bag-item .price { font-size: 15px; font-weight: 600; }
+        .del-btn { background: none; border: none; color: #999; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: color 0.2s; margin-left: 20px; }
+        .del-btn:hover { color: #c1121f; }
+        .bag-total { text-align: right; padding: 25px 0; font-size: 18px; letter-spacing: 1px; }
+        .bag-total strong { font-weight: 600; }
+        .checkout { margin-top: 15px; background: #1a1a1a; color: #fff; border: none; padding: 18px; width: 100%; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
+        .checkout:hover { opacity: 0.8; }
+        .checkout:disabled { opacity: 0.4; }
+        .checkout input { display: block; width: 100%; margin-top: 12px; padding: 14px; border: 1px solid #ddd; font-size: 14px; font-family: inherit; box-sizing: border-box; }
+        .checkout input:focus { outline: none; border-color: #1a1a1a; }
+        .empty { text-align: center; padding: 80px 20px; }
+        .empty h2 { font-size: 22px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; color: #999; }
+        .empty a { display: inline-block; padding: 14px 40px; border: 1px solid #1a1a1a; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; transition: all 0.3s; }
+        .empty a:hover { background: #1a1a1a; color: #fff; }
+        .cont-shopping { display: block; text-align: center; margin: 30px 0; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #999; }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="brand-name">CLSS WEAR</a>
+        <a href="card.html" class="cart-btn">Bag (<span id="cart-count">0</span>)</a>
+    </header>
+
+    <div class="bag-wrap">
+        <h1 class="bag-title">Shopping Bag</h1>
+        <div id="content"></div>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const WHATSAPP_NUMBER = "212000000000";
+
+        function renderCart() {
+            const content = document.getElementById("content");
+            const total = cart.reduce((s, i) => s + i.price, 0);
+
+            if (cart.length === 0) {
+                content.innerHTML = `<div class="empty"><h2>Your bag is empty</h2><a href="index.html">Continue Shopping</a></div>`;
+                return;
+            }
+
+            let html = cart.map((item, index) => `
+                <div class="bag-item">
+                    <div class="bag-item-info">
+                        <h3>${item.name}</h3>
+                        <div class="meta">${item.size ? 'Size: ' + item.size : ''}</div>
+                    </div>
+                    <div style="display:flex;align-items:center;">
+                        <span class="price">${item.price} DH</span>
+                        <button class="del-btn" onclick="removeItem(${index})">Remove</button>
+                    </div>
+                </div>`).join("");
+
+            html += `
+                <div class="bag-total"><strong>Total: ${total} DH</strong></div>
+                <div class="checkout">
+                    <input id="name" type="text" placeholder="Full Name">
+                    <input id="phone" type="tel" placeholder="Phone Number">
+                    <input id="address" type="text" placeholder="Address">
+                    <button onclick="sendOrder()">Checkout via WhatsApp</button>
+                </div>`;
+
+            content.innerHTML = html;
+            updateCount();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            renderCart();
+        }
+
+        function sendOrder() {
+            const name = document.getElementById("name").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const address = document.getElementById("address").value.trim();
+            if (!name || !phone || !address) { alert("Please fill in all fields!"); return; }
+            if (cart.length === 0) { alert("Bag is empty!"); return; }
+
+            let msg = `*NEW ORDER - CLSS WEAR*\n\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\n\nItems:\n`;
+            let total = 0;
+            cart.forEach((i, n) => { msg += `${n+1}. ${i.name}${i.size ? ' ('+i.size+')' : ''} — ${i.price} DH\n`; total += i.price; });
+            msg += `\nTotal: ${total} DH`;
+
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+            const w = window.open(url, "_blank");
+            if (!w || w.closed) window.location.href = url;
+
+            setTimeout(() => { if (confirm("WhatsApp opened! Clear bag?")) { cart = []; localStorage.setItem("cart", JSON.stringify(cart)); renderCart(); } }, 1500);
+        }
+
+        function updateCount() {
+            const el = document.getElementById("cart-count");
+            if (el) el.innerText = cart.length;
+        }
+
+        renderCart();
+        updateCount();
+    </script>
+</body>
+</html>
