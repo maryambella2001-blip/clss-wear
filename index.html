@@ -133,16 +133,9 @@
                         <h3>${p.name}</h3>
                         <div class="price">${p.price} DH</div>
                         <div class="cat-tag">${catLabel}</div>
-                        <button class="whatsapp-btn" onclick="event.stopPropagation(); orderWhatsApp('${p.name.replace(/'/g,"\\'")}', ${p.price})">💬 Order via WhatsApp</button>
                     </div>
                 </div>`;
             }).join("");
-        }
-
-        function orderWhatsApp(name, price) {
-            const msg = `Hello CLSS WEAR! 👋\n\nI'm interested in this product:\n\n*${name}*\nPrice: ${price} DH\n\nIs it available?`;
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-            window.open(url, "_blank");
         }
 
         function goToProduct(index) {
