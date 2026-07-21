@@ -59,6 +59,7 @@
 
         const API_URL = "https://api.github.com/repos/maryambella2001-blip/clss-wear/contents/products.json?ref=main&t=";
         const RAW_BASE = "https://raw.githubusercontent.com/maryambella2001-blip/clss-wear/main/";
+        const WHATSAPP_NUMBER = "212000000000"; // ← بدّل برقمك واتساب
         const PLACEHOLDER = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='280'><rect width='300' height='280' fill='%23f7f7f7'/><text x='50%25' y='50%25' font-size='14' text-anchor='middle' dy='.3em' fill='%23ccc' font-family='Arial'>CLSS WEAR</text></svg>";
 
         function resolveImage(path) {
@@ -127,9 +128,16 @@
                         <h3>${p.name}</h3>
                         <div class="price">${p.price} DH</div>
                         <div class="cat-tag">${catLabel}</div>
+                        <button class="whatsapp-btn" onclick="event.stopPropagation(); orderWhatsApp('${p.name.replace(/'/g,"\\'")}', ${p.price})">💬 Order via WhatsApp</button>
                     </div>
                 </div>`;
             }).join("");
+        }
+
+        function orderWhatsApp(name, price) {
+            const msg = `Hello CLSS WEAR! 👋\n\nI'm interested in this product:\n\n*${name}*\nPrice: ${price} DH\n\nIs it available?`;
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+            window.open(url, "_blank");
         }
 
         function goToProduct(index) {

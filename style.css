@@ -247,6 +247,30 @@ header ul li a:hover { opacity: 0.5; }
     margin-top: 4px;
 }
 
+.whatsapp-btn {
+    display: block;
+    width: 100%;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    margin-top: 15px;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.25s;
+    font-family: inherit;
+}
+
+.whatsapp-btn:hover {
+    background: #1da851;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
+}
+
 /* ================= ABOUT ================= */
 .about-section {
     text-align: center;
