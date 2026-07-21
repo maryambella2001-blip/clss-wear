@@ -3,30 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - CLSS WEAR</title>
     <link rel="stylesheet" href="style.css">
-    <title>Bag - CLSS WEAR</title>
     <style>
-        body { padding: 0; }
-        .bag-wrap { max-width: 700px; margin: 110px auto 60px; padding: 0 30px; }
-        .bag-title { font-size: 28px; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 35px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
-        .bag-item { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; border-bottom: 1px solid #eee; }
-        .bag-item-info h3 { font-size: 15px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
-        .bag-item-info .meta { font-size: 13px; color: #999; }
-        .bag-item .price { font-size: 15px; font-weight: 600; }
-        .del-btn { background: none; border: none; color: #999; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: color 0.2s; margin-left: 20px; }
-        .del-btn:hover { color: #c1121f; }
-        .bag-total { text-align: right; padding: 25px 0; font-size: 18px; letter-spacing: 1px; }
-        .bag-total strong { font-weight: 600; }
-        .checkout { margin-top: 15px; background: #1a1a1a; color: #fff; border: none; padding: 18px; width: 100%; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
-        .checkout:hover { opacity: 0.8; }
-        .checkout:disabled { opacity: 0.4; }
-        .checkout input { display: block; width: 100%; margin-top: 12px; padding: 14px; border: 1px solid #ddd; font-size: 14px; font-family: inherit; box-sizing: border-box; }
-        .checkout input:focus { outline: none; border-color: #1a1a1a; }
-        .empty { text-align: center; padding: 80px 20px; }
-        .empty h2 { font-size: 22px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; color: #999; }
-        .empty a { display: inline-block; padding: 14px 40px; border: 1px solid #1a1a1a; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; transition: all 0.3s; }
-        .empty a:hover { background: #1a1a1a; color: #fff; }
-        .cont-shopping { display: block; text-align: center; margin: 30px 0; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #999; }
+        body { background: #f5f5f5; padding: 30px 20px; }
+        .cart-wrap { max-width: 700px; margin: 80px auto 0; }
+        .cart-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            color: #1a1a1a;
+        }
+        .cart-item {
+            background: #fff;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+        .cart-item-info h3 {
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            color: #1a1a1a;
+        }
+        .cart-item-info p { margin: 0; color: #888; font-size: 13px; }
+        .cart-item-info .meta { color: #666; }
+        .item-price { font-weight: 700; font-size: 16px; color: #1a1a1a; }
+        .del-btn {
+            background: #e63946;
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            margin-left: 15px;
+            transition: opacity 0.2s;
+        }
+        .del-btn:hover { opacity: 0.85; }
+        .total-box {
+            margin-top: 25px;
+            font-size: 24px;
+            font-weight: 700;
+            background: #fff;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            text-align: right;
+            color: #1a1a1a;
+        }
+        .checkout-box {
+            background: #fff;
+            padding: 25px;
+            margin-top: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+        .checkout-box h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 15px;
+            color: #1a1a1a;
+            letter-spacing: 1px;
+        }
+        .checkout-box input {
+            display: block;
+            width: 100%;
+            margin-bottom: 12px;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        .checkout-box input:focus { outline: none; border-color: #1a1a1a; }
+        .checkout-btn {
+            width: 100%;
+            background: #25D366;
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+            margin-top: 5px;
+        }
+        .checkout-btn:hover:not(:disabled) {
+            background: #1da851;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(37,211,102,0.4);
+        }
+        .checkout-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            color: #888;
+        }
+        .empty-cart h2 {
+            font-size: 22px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        .empty-cart a {
+            display: inline-block;
+            margin-top: 20px;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 13px 35px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .empty-cart a:hover { opacity: 0.85; }
+        .back-link { text-align: center; margin-top: 25px; }
+        .back-link a { color: #888; text-decoration: none; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+        .back-link a:hover { color: #1a1a1a; }
     </style>
 </head>
 <body>
@@ -35,8 +148,8 @@
         <a href="card.html" class="cart-btn">Bag (<span id="cart-count">0</span>)</a>
     </header>
 
-    <div class="bag-wrap">
-        <h1 class="bag-title">Shopping Bag</h1>
+    <div class="cart-wrap">
+        <h1 class="cart-title">🛒 Shopping Bag</h1>
         <div id="content"></div>
     </div>
 
@@ -49,30 +162,41 @@
             const total = cart.reduce((s, i) => s + i.price, 0);
 
             if (cart.length === 0) {
-                content.innerHTML = `<div class="empty"><h2>Your bag is empty</h2><a href="index.html">Continue Shopping</a></div>`;
+                content.innerHTML = `
+                    <div class="empty-cart">
+                        <h2>Bag is empty</h2>
+                        <p>You haven't added anything yet</p>
+                        <a href="index.html">← Continue Shopping</a>
+                    </div>`;
+                updateCount();
                 return;
             }
 
-            let html = cart.map((item, index) => `
-                <div class="bag-item">
-                    <div class="bag-item-info">
-                        <h3>${item.name}</h3>
-                        <div class="meta">${item.size ? 'Size: ' + item.size : ''}</div>
-                    </div>
-                    <div style="display:flex;align-items:center;">
-                        <span class="price">${item.price} DH</span>
-                        <button class="del-btn" onclick="removeItem(${index})">Remove</button>
-                    </div>
-                </div>`).join("");
+            let html = cart.map((item, index) => {
+                let extra = "";
+                if (item.size) extra += `<p class="meta"><strong>Size:</strong> ${item.size}</p>`;
+                return `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <h3>${item.name}</h3>
+                            <p><strong class="item-price">${item.price} DH</strong></p>
+                            ${extra}
+                        </div>
+                        <button class="del-btn" onclick="removeItem(${index})">Delete</button>
+                    </div>`;
+            }).join("");
 
             html += `
-                <div class="bag-total"><strong>Total: ${total} DH</strong></div>
-                <div class="checkout">
+                <div class="total-box">Total: ${total} DH</div>
+                <div class="checkout-box">
+                    <h3>📋 Checkout</h3>
                     <input id="name" type="text" placeholder="Full Name">
                     <input id="phone" type="tel" placeholder="Phone Number">
                     <input id="address" type="text" placeholder="Address">
-                    <button onclick="sendOrder()">Checkout via WhatsApp</button>
-                </div>`;
+                    <input id="city" type="text" placeholder="City">
+                    <button class="checkout-btn" onclick="sendOrder()">💬 Confirm Order via WhatsApp</button>
+                </div>
+                <div class="back-link"><a href="index.html">← Continue Shopping</a></div>`;
 
             content.innerHTML = html;
             updateCount();
@@ -88,19 +212,40 @@
             const name = document.getElementById("name").value.trim();
             const phone = document.getElementById("phone").value.trim();
             const address = document.getElementById("address").value.trim();
-            if (!name || !phone || !address) { alert("Please fill in all fields!"); return; }
+            const city = document.getElementById("city").value.trim();
+
+            if (!name) { alert("Please enter your name!"); return; }
+            if (!phone) { alert("Please enter your phone!"); return; }
+            if (!address) { alert("Please enter your address!"); return; }
             if (cart.length === 0) { alert("Bag is empty!"); return; }
 
-            let msg = `*NEW ORDER - CLSS WEAR*\n\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\n\nItems:\n`;
+            let msg = `🛒 *NEW ORDER - CLSS WEAR*\n\n`;
+            msg += `👤 *Name:* ${name}\n`;
+            msg += `📱 *Phone:* ${phone}\n`;
+            msg += `📍 *Address:* ${address}\n`;
+            if (city) msg += `🏙️ *City:* ${city}\n`;
+            msg += `\n*📦 Items:*\n`;
+
             let total = 0;
-            cart.forEach((i, n) => { msg += `${n+1}. ${i.name}${i.size ? ' ('+i.size+')' : ''} — ${i.price} DH\n`; total += i.price; });
-            msg += `\nTotal: ${total} DH`;
+            cart.forEach((item, i) => {
+                msg += `${i+1}. ${item.name}`;
+                if (item.size) msg += ` | Size: ${item.size}`;
+                msg += ` — *${item.price} DH*\n`;
+                total += item.price;
+            });
+            msg += `\n💰 *Total: ${total} DH*\n\nThank you! 🙏`;
 
             const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
             const w = window.open(url, "_blank");
             if (!w || w.closed) window.location.href = url;
 
-            setTimeout(() => { if (confirm("WhatsApp opened! Clear bag?")) { cart = []; localStorage.setItem("cart", JSON.stringify(cart)); renderCart(); } }, 1500);
+            setTimeout(() => {
+                if (confirm("✅ WhatsApp opened!\n\nClear the bag now?")) {
+                    cart = [];
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    renderCart();
+                }
+            }, 1500);
         }
 
         function updateCount() {
