@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "name": "is",
+    "price": 123,
+    "image": "images/product_1784598554324_535.png",
+    "category": "clothes"
+  }
+]
