@@ -375,11 +375,16 @@ header ul li a:hover { opacity: 0.5; }
     .tabs { gap: 25px; padding: 35px 15px 22px; }
     .tab-btn { font-size: 11px; letter-spacing: 1px; }
     
-    .products { grid-template-columns: repeat(2, 1fr); }
-    .card { padding: 12px; }
-    .card img { height: 180px; }
-    .card h3 { font-size: 12px; }
-    .card .price { font-size: 11px; }
+    .products { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 30px 12px; }
+    .card { padding: 8px; }
+    .card-emoji, .card-wish { width: 30px; height: 30px; font-size: 15px; top: 8px; }
+    .card-emoji { left: 8px; }
+    .card-wish { right: 8px; }
+    .card img { height: 140px; }
+    .card-body { padding: 10px 8px 12px; }
+    .card h3 { font-size: 12px; margin-bottom: 4px; }
+    .card .price { font-size: 13px; }
+    .card .cat-tag { font-size: 9px; margin-top: 2px; }
     
     .about-section { padding: 60px 20px; }
     .about-section h2 { font-size: 24px; }
