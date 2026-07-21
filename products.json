@@ -1,14 +1,1 @@
-[
-  {
-    "name": "is",
-    "price": 123,
-    "image": "images/product_1784598554324_535.png",
-    "category": "clothes"
-  },
-  {
-    "name": "rigola",
-    "price": 122,
-    "image": "images/product_1784599226098_673.png",
-    "category": "sandals"
-  }
-]
+[]
